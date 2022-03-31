@@ -1,7 +1,6 @@
 # face_detect_sticker_app
 
 <br><br>
-
 ⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞
 <br><br>
 

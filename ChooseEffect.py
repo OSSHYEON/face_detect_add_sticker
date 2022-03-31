@@ -31,7 +31,8 @@ class EffectWidget(QDialog):
 
     # 각 버튼 클릭하면 위에서 읽어온 이미지를 self.mask에 담는다
     def mask_effect_slot(self):
-        self.mask = cv2.imread(num_0, cv2.IMREAD_UNCHANGED) # alpha channel 까지 읽어오기
+        # alpha channel 까지 읽어오기
+        self.mask = cv2.imread(num_0, cv2.IMREAD_UNCHANGED)
         self.thread.mask = self.mask
 
 

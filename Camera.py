@@ -90,7 +90,7 @@ class Thread_2(QThread):
 
 
                     except:
-                        pass
+                        continue
 
 
 

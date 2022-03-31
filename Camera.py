@@ -4,7 +4,7 @@ from numpy import ndarray
 import queue
 
 
-# 영상 받는 스레드 + dlib 사용해 영상 처리하는 스레드를 queue에 담음
+# 영상 받는 스레드,  dlib 사용해 영상 처리하는 스레드를 queue에 담음
 BUF_SIZE = 307200
 q = queue.Queue(BUF_SIZE)
 

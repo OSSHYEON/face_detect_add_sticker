@@ -3,35 +3,32 @@ from PyQt5.QtCore import QThread, pyqtSignal
 from numpy import ndarray
 import queue
 
+
+# 영상 받는 스레드 + dlib 사용해 영상 처리하는 스레드를 queue에 담음
 BUF_SIZE = 307200
 q = queue.Queue(BUF_SIZE)
 
 ret = int
 
 
+
 class Thread(QThread):
 
     video_emit = pyqtSignal(ndarray)
 
-    def __init__(self, thread=None):
-        super().__init__()
-        self.parent_thread = thread
 
     def run(self):
         global cap
-        global ret
-        global frame
 
         cap = cv2.VideoCapture(0)
 
         while True:
 
-            ret, frame_r = cap.read()
-            frame_g = cv2.resize(frame_r, (300,200))
+            ret, frame = cap.read()
+            frame = cv2.resize(frame, (300,200))
 
             if ret:
-                self.video_emit.emit(frame_r)
-                q.put(frame_g)
+                q.put(frame)
 
 
 
@@ -42,7 +39,7 @@ class Thread_2(QThread):
         super().__init__()
         self.detector = dlib.get_frontal_face_detector()
         self.predictor = dlib.shape_predictor("./shape_predictor_68_face_landmarks.dat")
-        self.mask = None
+        self.mask = None  # second widget에서 버튼을 클릭하면 이미지를 받아온다.
 
 
     def run(self):
@@ -51,18 +48,17 @@ class Thread_2(QThread):
 
             if not q.empty():
 
-                frame = q.get()
+                frame = q.get() # 큐에 담은 영상 꺼내기
                 dets = self.detector(frame, 1)
 
 
                 if self.mask is None:
-                    self.det_frame.emit(frame)
+                    self.det_frame.emit(frame)  # 효과 선택하지 않았을 때는 가공하지 않은 영상 송출
 
                 else:
                     try:
 
                         for det in dets:
-
                             x_1 = det.left()
                             x_2 = det.right()
 
@@ -86,7 +82,7 @@ class Thread_2(QThread):
 
                             frame[self.mask_y1:self.mask_y2, self.mask_x1:self.mask_x2] = overlay_alpha * self.mask[:, :,:3] + background_alpha * frame[self.mask_y1:self.mask_y2,self.mask_x1:self.mask_x2]
 
-                            self.det_frame.emit(frame)
+                            self.det_frame.emit(frame)  # 스티커 합친 프레임 송출
 
 
                     except:

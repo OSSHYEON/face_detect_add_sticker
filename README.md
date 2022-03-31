@@ -5,7 +5,7 @@
 <br><br>
 
 
-📌 requeirements
+## 📌 requeirements
 - dlib==19.23.1
 - opencv-python==4.4.0.46
 - PyQt5==5.12

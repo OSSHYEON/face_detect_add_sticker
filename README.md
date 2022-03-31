@@ -21,7 +21,7 @@
 - PyQt5_sip==4.19.19
 - PySide6==6.2.3
 
-
+<br><br>
 ## 📸 example
 ![image](https://user-images.githubusercontent.com/94279314/160963449-b3bdd941-e2ed-4fa6-b3d9-226da91d9ce5.png)
 

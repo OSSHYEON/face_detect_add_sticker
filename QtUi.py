@@ -2,7 +2,7 @@ import cv2, os, sys, datetime
 from PyQt5 import uic
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap, QImage
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QMainWindow
 from ChooseEffect import EffectWidget
 from ChooseFilter import FilterWidget
 from Camera import Thread, Thread_2
@@ -12,6 +12,7 @@ from Camera import Thread, Thread_2
 ui = uic.loadUiType("snow.ui")[0]
 
 class SnowApp(QMainWindow, ui):
+
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -22,17 +23,18 @@ class SnowApp(QMainWindow, ui):
         self.thread_2.start()
         self.thread.start()
 
+        # 스티커 처리 시그널과 화면 송출 함수, 캡쳐 함수 연결
         self.thread_2.det_frame.connect(self.setImage)
         self.thread_2.det_frame.connect(self.capture)
-        self.second = EffectWidget(self, self.thread_2)
 
+        self.second = EffectWidget(self, self.thread_2)
         self.now = datetime.datetime.now().strftime("%m-%d_%H-%M-%S-%f")
 
 
 
     def setImage(self, frame):
 
-        if frame.size == 0:
+        if frame.size == 0:  # ndarray로 받은 frame 크기가 0이라면 영상 띄우지 않음
             pass
 
         else:
@@ -58,7 +60,6 @@ class SnowApp(QMainWindow, ui):
 
         else:
             cv2.imwrite(save_path + str(self.now) + ".png", frame)
-
 
 
     def filter(self):

@@ -2,7 +2,6 @@ from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import QDialog
 import os, cv2
 
-
 dir = "./images"
 img_list = []
 img_extension = '.png'
@@ -18,14 +17,11 @@ for idx,i in enumerate(img_list):
     globals()['num_{}'.format(idx)] = i
 
 
-
 pig = cv2.imread(num_1)
 disguise = cv2.imread(num_2)
 cat = cv2.imread(num_3)
 goggle = cv2.imread(num_4)
 bunny = cv2.imread(num_5)
-
-
 
 
 class EffectWidget(QDialog):
@@ -35,7 +31,6 @@ class EffectWidget(QDialog):
         loadUi("select.ui", self)
         self.parent = parent
         self.thread = thread2
-
 
 
     def mask_effect_slot(self):
@@ -67,8 +62,3 @@ class EffectWidget(QDialog):
     def tarantula_effect(self):
         self.mask = cv2.imread(num_3, cv2.IMREAD_UNCHANGED)
         self.thread.mask = self.mask
-
-
-
-
-

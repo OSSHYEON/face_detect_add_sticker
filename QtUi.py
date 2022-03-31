@@ -64,11 +64,3 @@ class SnowApp(QMainWindow, ui):
     def filter(self):
         self.third.move(1200, 200)
         self.third.show()
-
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    win = SnowApp()
-    win.setWindowTitle("OSSNOW")
-    win.show()
-    sys.exit(app.exec())

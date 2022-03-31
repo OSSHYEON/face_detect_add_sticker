@@ -2,6 +2,7 @@ from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import QDialog
 import os, cv2
 
+# 이미지 찾아서 읽기
 dir = "./images"
 img_list = []
 img_extension = '.png'
@@ -17,11 +18,6 @@ for idx,i in enumerate(img_list):
     globals()['num_{}'.format(idx)] = i
 
 
-pig = cv2.imread(num_1)
-disguise = cv2.imread(num_2)
-cat = cv2.imread(num_3)
-goggle = cv2.imread(num_4)
-bunny = cv2.imread(num_5)
 
 
 class EffectWidget(QDialog):
@@ -33,8 +29,9 @@ class EffectWidget(QDialog):
         self.thread = thread2
 
 
+    # 각 버튼 클릭하면 위에서 읽어온 이미지를 self.mask에 담는다
     def mask_effect_slot(self):
-        self.mask = cv2.imread(num_0, cv2.IMREAD_UNCHANGED)
+        self.mask = cv2.imread(num_0, cv2.IMREAD_UNCHANGED) # alpha channel 까지 읽어오기
         self.thread.mask = self.mask
 
 

@@ -14,8 +14,6 @@ ret = int
 
 class Thread(QThread):
 
-    video_emit = pyqtSignal(ndarray)
-
 
     def run(self):
         global cap
